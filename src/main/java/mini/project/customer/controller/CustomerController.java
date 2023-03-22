@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.*;
 public class CustomerController {
     private final CustomerService customerService;
 
-    @GetMapping("/detail")
+    @PostMapping("/detail")
     public ResponseEntity<?> getDetailById(@RequestParam String customerId) {
         return ResponseEntity.ok(customerService.getCustomerById(customerId));
     }

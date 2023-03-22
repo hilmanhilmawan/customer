@@ -9,6 +9,8 @@ import mini.project.customer.response.CustomerResponse;
 import mini.project.customer.service.CustomerService;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -18,12 +20,16 @@ public class CustomerServiceImpl implements CustomerService {
     private final CustomerMapper customerMapper;
 
     @Override
-    public CustomerResponse getCustomerById(String customerId) {
-        Optional<Customer> customerOptional = customerRepository.findCustomerByCustomerId(customerId);
-        if (!customerOptional.isPresent()) {
+    public List<CustomerResponse> getCustomerById(String customerId) {
+        Iterable<Customer> customerIterable = customerRepository.findCustomerByCustomerId(customerId);
+        if (customerIterable == null) {
             throw new RuntimeException("Tidak ada data");
         }
-        return customerMapper.convertToResponse(customerOptional.get());
+        List<CustomerResponse> responseList = new ArrayList<>();
+        for (Customer customer : customerIterable) {
+            responseList.add(customerMapper.convertToResponse(customer));
+        }
+        return responseList;
     }
 
     @Override
