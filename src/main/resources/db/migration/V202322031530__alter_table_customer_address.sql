@@ -1,0 +1,3 @@
+ALTER TABLE `customer`.`customer_address`
+    ADD COLUMN `id` BIGINT(20) NOT NULL AUTO_INCREMENT FIRST,
+  ADD PRIMARY KEY (`id`);
